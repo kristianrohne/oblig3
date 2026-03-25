@@ -1,3 +1,5 @@
+// Main for oblig 2. Her er det noen eksempeler av hvordan man kjører koden
+
 #include "graph.h"
 #include <iostream>
 
