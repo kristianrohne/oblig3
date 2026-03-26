@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <map>
 
 namespace namespace_graph {
 
@@ -58,6 +59,7 @@ public:
 
     virtual std::vector<std::string> get_nodes() const = 0;
     virtual std::vector<std::string> get_out_neighbors(const std::string& label) const = 0;
+    virtual std::vector<std::pair<std::string, std::string>> get_labeled_out_edges(const std::string& label) const = 0;
 };
 
 
@@ -91,6 +93,7 @@ public:
 
     std::vector<std::string> get_nodes() const override;
     std::vector<std::string> get_out_neighbors(const std::string& label) const override;
+    std::vector<std::pair<std::string, std::string>> get_labeled_out_edges(const std::string& label) const override;
 
 };
 
@@ -124,5 +127,7 @@ public:
 
     std::vector<std::string> get_nodes() const override;
     std::vector<std::string> get_out_neighbors(const std::string& label) const override;
+    std::vector<std::pair<std::string, std::string>> get_labeled_out_edges(const std::string& label) const override;
+
 };
 }

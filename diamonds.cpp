@@ -1,5 +1,3 @@
-// 3.2
-
 #include "diamond_finder.h"
 
 #include <fstream>
@@ -20,113 +18,98 @@ std::vector<std::vector<std::string>> Diamond::get_label_sequences(const std::st
     }
 
     std::string line;
-    while (std::getline(file, line)) {
+
+    // Check that query_file has at least two lines
+    for (int i = 0; i < 2; i++) {
+        if (!std::getline(file, line)) {
+            std::cerr << "Query file must contain exactly 2 lines\n";
+            return label_sequences;
+        }
+
+        // istringstream for getting each word in string
         std::istringstream iss(line);
+        // Each sequence
         std::vector<std::string> sequence;
-        std::string token;
+        // 
+        std::string word;
 
-        while (iss >> token) {
-            if (!token.empty() && token.back() == '.') {
-                token.pop_back();
+        while (iss >> word) {
+            if (!word.empty() && word.back() == '.') {
+                // Removes . of last word
+                word.pop_back();
             }
-            sequence.push_back(token);
+            sequence.push_back(word);
         }
 
-        if (!sequence.empty()) {
-            label_sequences.push_back(sequence);
-        }
+        label_sequences.push_back(sequence);
     }
-
-    if (label_sequences.size() != 2) {
+    // Check that file doesn´t contain any more lines 
+    if (std::getline(file, line)) {
         std::cerr << "Query file must contain exactly 2 lines\n";
+        return {};
     }
 
     return label_sequences;
 }
 
-std::vector<std::vector<std::string>> Diamond::find_diamonds(const namespace_graph::AbstractGraph& graph, std::string query_file) {
-    // Reset state in case the same Tarjan object is reused
-    next_id = 0;
-    nodes.clear();
-    out_edges.clear();
-    ids.clear();
-    low.clear();
-    on_stack.clear();
-    stack.clear();
-    diamond_pairs.clear();
-    label_sequences.clear();
 
+std::vector<std::pair<std::string, std::string>>
+Diamond::find_diamonds(const namespace_graph::AbstractGraph& graph,
+                       const std::string& query_file) {
+    diamond_pairs.clear();
     label_sequences = get_label_sequences(query_file);
 
-    // Get all node labels from graph
+    if (label_sequences.size() != 2) {
+        return diamond_pairs;
+    }
+
     nodes = graph.get_nodes();
-    int n = static_cast<int>(nodes.size());
 
-    // Temporary mapping from node label to integer index
-    std::unordered_map<std::string, int> index_of;
-    for (int i = 0; i < n; i++) {
-        index_of[nodes[i]] = i;
-    }
+    for (const std::string& start_node : nodes) {
+        std::vector<std::string> endpoints_seq1;
+        std::vector<std::string> endpoints_seq2;
 
-    // Prepare vectors with correct size
-    out_edges.resize(n);
-    ids.resize(n, UNVISITED);
-    low.resize(n, UNVISITED);
-    on_stack.resize(n, false);
+        dfs_follow_sequence(graph, start_node, label_sequences[0], 0, endpoints_seq1);
+        dfs_follow_sequence(graph, start_node, label_sequences[1], 0, endpoints_seq2);
 
-    // Build adjacency list using integer indices
-    for (int i = 0; i < n; i++) {
-        std::vector<std::string> neighbors = graph.get_out_neighbors(nodes[i]);
+        // Remove duplicates from endpoints if needed
+        std::sort(endpoints_seq1.begin(), endpoints_seq1.end());
+        endpoints_seq1.erase(std::unique(endpoints_seq1.begin(), endpoints_seq1.end()), endpoints_seq1.end());
 
-        for (const std::string& neighbor : neighbors) {
-            out_edges[i].push_back(index_of[neighbor]);
-        }
-    }
+        std::sort(endpoints_seq2.begin(), endpoints_seq2.end());
+        endpoints_seq2.erase(std::unique(endpoints_seq2.begin(), endpoints_seq2.end()), endpoints_seq2.end());
 
-    // Run DFS from each unvisited node
-    for (int i = 0; i < n; i++) {
-        if (ids[i] == UNVISITED) {
-            dfs(i);
-        }
-    }
-
-    return sccs;
-}
-
-void Tarjan::dfs(int current) {
-    stack.push_back(current);
-    on_stack[current] = true;
-    ids[current] = next_id;
-    low[current] = next_id;
-    next_id++;
-
-    for (int to : out_edges[current]) {
-        if (ids[to] == UNVISITED) {
-            dfs(to);
-            low[current] = std::min(low[current], low[to]);
-        } else if (on_stack[to]) {
-            low[current] = std::min(low[current], ids[to]);
-        }
-    }
-
-    // current is the root of an SCC
-    if (ids[current] == low[current]) {
-        std::vector<std::string> component;
-
-        while (true) {
-            int node = stack.back();
-            stack.pop_back();
-            on_stack[node] = false;
-
-            component.push_back(nodes[node]);
-
-            if (node == current) {
-                break;
+        // Find common endpoints
+        for (const std::string& end_node : endpoints_seq1) {
+            if (std::find(endpoints_seq2.begin(), endpoints_seq2.end(), end_node) != endpoints_seq2.end()) {
+                diamond_pairs.push_back({start_node, end_node});
             }
         }
-
-        sccs.push_back(component);
     }
+
+    return diamond_pairs;
 }
 
+
+void Diamond::dfs_follow_sequence(const namespace_graph::AbstractGraph& graph,
+                                  const std::string& current_node,
+                                  const std::vector<std::string>& sequence,
+                                  int label_index,
+                                  std::vector<std::string>& endpoints) {
+                                    
+    if (label_index == static_cast<int>(sequence.size())) {
+        endpoints.push_back(current_node);
+        return;
+    }
+
+    std::string needed_label = sequence[label_index];
+
+    for (const auto& edge : graph.get_labeled_out_edges(current_node)) {
+        const std::string& edge_label = edge.first;
+        const std::string& next_node = edge.second;
+
+        if (edge_label == needed_label) {
+            dfs_follow_sequence(graph, next_node, sequence, label_index + 1, endpoints);
+        }
+    }
 }

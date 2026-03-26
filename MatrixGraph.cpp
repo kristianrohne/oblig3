@@ -196,4 +196,25 @@ std::vector<std::string> MatrixGraph::get_out_neighbors(const std::string& label
 
     return neighbors;
 }
+
+std::vector<std::pair<std::string, std::string>>
+MatrixGraph::get_labeled_out_edges(const std::string& label) const {
+    std::vector<std::pair<std::string, std::string>> neighbors;
+
+    auto iterator = index_of.find(label);
+    if (iterator == index_of.end()) {
+        return neighbors;
+    }
+
+    int i = iterator->second;
+
+    for (size_t j = 0; j < matrix[i].size(); ++j) {
+        for (const std::string& edge_label : matrix[i][j]) {
+            neighbors.push_back({edge_label, node_labels[j]});
+        }
+    }
+
+    return neighbors;
+}
+
 }

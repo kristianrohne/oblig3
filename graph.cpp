@@ -300,5 +300,20 @@ std::vector<std::string> Graph::get_out_neighbors(const std::string& label) cons
     return neighbors;
 }
 
+std::vector<std::pair<std::string, std::string>> Graph::get_labeled_out_edges(const std::string& label) const {
+    std::vector<std::pair<std::string, std::string>> neighbors;
 
+    Node* node = find_node(label);
+    if (!node) {
+        return neighbors;
+    }
+
+    for (Edge* edge : node->out_edges()) {
+        if (edge && edge->to) {
+            neighbors.push_back({edge->label(), edge->to->label()});
+        }
+    }
+
+    return neighbors;
+}
 }
