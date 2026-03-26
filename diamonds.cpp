@@ -96,7 +96,7 @@ void Diamond::dfs_follow_sequence(const namespace_graph::AbstractGraph& graph,
                                   const std::vector<std::string>& sequence,
                                   int label_index,
                                   std::vector<std::string>& endpoints) {
-                                    
+
     if (label_index == static_cast<int>(sequence.size())) {
         endpoints.push_back(current_node);
         return;
@@ -113,3 +113,5 @@ void Diamond::dfs_follow_sequence(const namespace_graph::AbstractGraph& graph,
         }
     }
 }
+
+}  // namespace diamond_finder
