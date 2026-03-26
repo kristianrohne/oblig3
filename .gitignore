@@ -1,0 +1,19 @@
+# Compiled object files
+*.o
+
+# Executable binaries
+graph_oblig2
+graph_scc
+graph_diamond
+
+# Backup files
+*.bak
+*.swp
+*~
+
+# OS files
+.DS_Store
+.vscode/
+
+# Build artifacts
+*.zip
