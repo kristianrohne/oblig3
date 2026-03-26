@@ -1,0 +1,134 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- AbstractGraph -->
+    <mxCell id="abs" value="&lt;&lt;abstract&gt;&gt;&#xa;AbstractGraph" style="swimlane;fontStyle=1;align=center;startSize=50;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="490" y="60" width="260" height="200" as="geometry" />
+    </mxCell>
+    <mxCell id="abs_m" value="+ insert_edge(a, lbl, b): void&#xa;+ load_from_file(file): void&#xa;+ write_to_file(file): void&#xa;+ disconnect(a, b): void&#xa;+ remove_node(lbl): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(lbl): vector&lt;string&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="abs">
+      <mxGeometry y="50" width="260" height="150" as="geometry" />
+    </mxCell>
+
+    <!-- Graph -->
+    <mxCell id="graph" value="Graph" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="80" y="370" width="270" height="290" as="geometry" />
+    </mxCell>
+    <mxCell id="graph_f" value="- nodes: list&lt;Node*&gt;&#xa;- edges: list&lt;Edge*&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="graph">
+      <mxGeometry y="26" width="270" height="46" as="geometry" />
+    </mxCell>
+    <mxCell id="graph_div" value="" style="line;strokeColor=#82b366;" vertex="1" parent="graph">
+      <mxGeometry y="72" width="270" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="graph_m" value="+ Graph() / ~Graph()&#xa;+ Graph(const Graph&amp;)&#xa;+ operator=(const Graph&amp;)&#xa;+ Graph(Graph&amp;&amp;) noexcept&#xa;+ operator=(Graph&amp;&amp;) noexcept&#xa;+ insert_edge(): void&#xa;+ load_from_file(): void&#xa;+ write_to_file(): void&#xa;+ disconnect(): void&#xa;+ remove_node(): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(): vector&lt;string&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="graph">
+      <mxGeometry y="80" width="270" height="210" as="geometry" />
+    </mxCell>
+
+    <!-- MatrixGraph -->
+    <mxCell id="matrix" value="MatrixGraph" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="790" y="370" width="290" height="240" as="geometry" />
+    </mxCell>
+    <mxCell id="matrix_f" value="+ node_labels: vector&lt;string&gt;&#xa;+ index_of: unordered_map&lt;string,int&gt;&#xa;+ matrix: vector&lt;vector&lt;vector&lt;string&gt;&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="matrix">
+      <mxGeometry y="26" width="290" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="matrix_div" value="" style="line;strokeColor=#82b366;" vertex="1" parent="matrix">
+      <mxGeometry y="86" width="290" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="matrix_m" value="+ MatrixGraph() (default rule of five)&#xa;+ insert_edge(): void&#xa;+ load_from_file(): void&#xa;+ write_to_file(): void&#xa;+ disconnect(): void&#xa;+ remove_node(): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(): vector&lt;string&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="matrix">
+      <mxGeometry y="94" width="290" height="146" as="geometry" />
+    </mxCell>
+
+    <!-- Node -->
+    <mxCell id="node" value="Node" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="50" y="780" width="230" height="190" as="geometry" />
+    </mxCell>
+    <mxCell id="node_f" value="- label_: string&#xa;- out_edges_: list&lt;Edge*&gt;&#xa;- in_edges_: list&lt;Edge*&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="node">
+      <mxGeometry y="26" width="230" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="node_div" value="" style="line;strokeColor=#d6b656;" vertex="1" parent="node">
+      <mxGeometry y="86" width="230" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="node_m" value="+ label(): const string&amp;&#xa;+ add_out_edge(e): void&#xa;+ add_in_edge(e): void&#xa;+ remove_out_edge(e): void&#xa;+ remove_in_edge(e): void&#xa;+ is_isolated(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="node">
+      <mxGeometry y="94" width="230" height="96" as="geometry" />
+    </mxCell>
+
+    <!-- Edge -->
+    <mxCell id="edgec" value="Edge" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="330" y="790" width="210" height="130" as="geometry" />
+    </mxCell>
+    <mxCell id="edgec_f" value="- label_: string&#xa;+ from: Node*&#xa;+ to: Node*" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="edgec">
+      <mxGeometry y="26" width="210" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="edgec_div" value="" style="line;strokeColor=#d6b656;" vertex="1" parent="edgec">
+      <mxGeometry y="86" width="210" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="edgec_m" value="+ label(): const string&amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="edgec">
+      <mxGeometry y="94" width="210" height="36" as="geometry" />
+    </mxCell>
+
+    <!-- Tarjan -->
+    <mxCell id="tarjan" value="Tarjan" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+      <mxGeometry x="590" y="760" width="250" height="230" as="geometry" />
+    </mxCell>
+    <mxCell id="tarjan_f" value="- next_id: int&#xa;- nodes: vector&lt;string&gt;&#xa;- out_edges: vector&lt;vector&lt;int&gt;&gt;&#xa;- ids, low, stack: vector&lt;int&gt;&#xa;- on_stack: vector&lt;bool&gt;&#xa;- sccs: vector&lt;vector&lt;string&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="tarjan">
+      <mxGeometry y="26" width="250" height="110" as="geometry" />
+    </mxCell>
+    <mxCell id="tarjan_div" value="" style="line;strokeColor=#b85450;" vertex="1" parent="tarjan">
+      <mxGeometry y="136" width="250" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="tarjan_m" value="+ findSCCs(graph): vector&lt;vector&lt;string&gt;&gt;&#xa;- dfs(current: int): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="tarjan">
+      <mxGeometry y="144" width="250" height="86" as="geometry" />
+    </mxCell>
+
+    <!-- Diamond -->
+    <mxCell id="diamond" value="Diamond" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+      <mxGeometry x="900" y="740" width="270" height="260" as="geometry" />
+    </mxCell>
+    <mxCell id="diamond_f" value="- next_id: int&#xa;- nodes: vector&lt;string&gt;&#xa;- out_edges: vector&lt;vector&lt;int&gt;&gt;&#xa;- ids, low, stack: vector&lt;int&gt;&#xa;- on_stack: vector&lt;bool&gt;&#xa;- diamond_pairs: vector&lt;unordered_map&gt;&#xa;- label_sequences: vector&lt;vector&lt;string&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
+      <mxGeometry y="26" width="270" height="120" as="geometry" />
+    </mxCell>
+    <mxCell id="diamond_div" value="" style="line;strokeColor=#b85450;" vertex="1" parent="diamond">
+      <mxGeometry y="146" width="270" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="diamond_m" value="+ find_diamonds(graph): vector&#xa;- search_diamonds(current: int): void&#xa;- get_label_sequences(file): vector" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
+      <mxGeometry y="154" width="270" height="106" as="geometry" />
+    </mxCell>
+
+    <!-- Graph inherits AbstractGraph -->
+    <mxCell id="r1" value="" style="endArrow=block;endFill=0;endSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="graph" target="abs">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- MatrixGraph inherits AbstractGraph -->
+    <mxCell id="r2" value="" style="endArrow=block;endFill=0;endSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="matrix" target="abs">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Graph owns Node (composition) -->
+    <mxCell id="r3" value="owns" style="endArrow=ERmany;startArrow=ERmandOne;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;" edge="1" parent="1" source="graph" target="node">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Graph owns Edge (composition) -->
+    <mxCell id="r4" value="owns" style="endArrow=ERmany;startArrow=ERmandOne;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;" edge="1" parent="1" source="graph" target="edgec">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Node references Edge -->
+    <mxCell id="r5" value="references" style="endArrow=open;endSize=8;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d6b656;" edge="1" parent="1" source="node" target="edgec">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Tarjan uses AbstractGraph -->
+    <mxCell id="r6" value="uses" style="endArrow=open;endSize=8;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="tarjan" target="abs">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Diamond uses AbstractGraph -->
+    <mxCell id="r7" value="uses" style="endArrow=open;endSize=8;dashed=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="diamond" target="abs">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
