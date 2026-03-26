@@ -1,6 +1,7 @@
 // Main for oblig 2. Her er det noen eksempeler av hvordan man kjører koden
 
 #include "graph.h"
+#include "MatrixGraph.h"
 #include <iostream>
 
 void print_matrix(const namespace_graph::MatrixGraph& graph) {

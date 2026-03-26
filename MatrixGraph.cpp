@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "MatrixGraph.h"
 #include <iostream>
 #include <fstream>
 namespace namespace_graph {

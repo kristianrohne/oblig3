@@ -38,7 +38,7 @@ pro31: $(binary_scc)
 
 pro32: $(binary_diamond)
 	@echo "=== Problem 3.2: Diamond path query demo ==="
-	./$(binary_diamond) --verbose data/scc02.dat
+	./$(binary_diamond) --verbose data/scc02.dat data/query.dat
 	@echo "=== Done ==="
 
 clean:

@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "MatrixGraph.h"
 #include "diamond_finder.h"
 #include <iostream>
 #include <memory>

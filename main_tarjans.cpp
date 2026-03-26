@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "MatrixGraph.h"
 #include "tarjans.h"
 #include <iostream>
 #include <memory>
