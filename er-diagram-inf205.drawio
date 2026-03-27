@@ -85,14 +85,14 @@
     <mxCell id="diamond" value="Diamond" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
       <mxGeometry x="900" y="740" width="270" height="260" as="geometry" />
     </mxCell>
-    <mxCell id="diamond_f" value="- next_id: int&#xa;- nodes: vector&lt;string&gt;&#xa;- out_edges: vector&lt;vector&lt;int&gt;&gt;&#xa;- ids, low, stack: vector&lt;int&gt;&#xa;- on_stack: vector&lt;bool&gt;&#xa;- diamond_pairs: vector&lt;unordered_map&gt;&#xa;- label_sequences: vector&lt;vector&lt;string&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
-      <mxGeometry y="26" width="270" height="120" as="geometry" />
+    <mxCell id="diamond_f" value="- nodes: vector&lt;string&gt;&#xa;- label_sequences: vector&lt;vector&lt;string&gt;&gt;&#xa;- diamond_pairs: vector&lt;pair&lt;string,string&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
+      <mxGeometry y="26" width="270" height="80" as="geometry" />
     </mxCell>
     <mxCell id="diamond_div" value="" style="line;strokeColor=#b85450;" vertex="1" parent="diamond">
-      <mxGeometry y="146" width="270" height="8" as="geometry" />
+      <mxGeometry y="106" width="270" height="8" as="geometry" />
     </mxCell>
-    <mxCell id="diamond_m" value="+ find_diamonds(graph): vector&#xa;- search_diamonds(current: int): void&#xa;- get_label_sequences(file): vector" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
-      <mxGeometry y="154" width="270" height="106" as="geometry" />
+    <mxCell id="diamond_m" value="+ find_diamonds(graph, query): vector&lt;pair&gt;&#xa;- get_label_sequences(file): vector&lt;vector&gt;&#xa;- dfs_follow_sequence(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="diamond">
+      <mxGeometry y="114" width="270" height="146" as="geometry" />
     </mxCell>
 
     <!-- Graph inherits AbstractGraph -->
@@ -128,6 +128,20 @@
     <!-- Diamond uses AbstractGraph -->
     <mxCell id="r7" value="uses" style="endArrow=open;endSize=8;dashed=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="diamond" target="abs">
       <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- CliUtils -->
+    <mxCell id="cliutils" value="graph_from_cmd" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+      <mxGeometry x="1200" y="780" width="290" height="240" as="geometry" />
+    </mxCell>
+    <mxCell id="cliutils_struct" value="ParsedArgs (struct)&#xa;+ verbose: bool&#xa;+ use_matrix: bool&#xa;+ primary_file: string&#xa;+ secondary_file: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="cliutils">
+      <mxGeometry y="26" width="290" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="cliutils_div" value="" style="line;strokeColor=#9673a6;" vertex="1" parent="cliutils">
+      <mxGeometry y="106" width="290" height="8" as="geometry" />
+    </mxCell>
+    <mxCell id="cliutils_m" value="+ parse_arguments(argc, argv, allow_secondary): ParsedArgs&#xa;+ create_graph(use_matrix): unique_ptr&lt;AbstractGraph&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;" vertex="1" parent="cliutils">
+      <mxGeometry y="114" width="290" height="126" as="geometry" />
     </mxCell>
 
   </root>

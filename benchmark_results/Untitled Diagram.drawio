@@ -1,0 +1,123 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.6">
+  <diagram name="Page-1" id="SzSBZEcgDrvf86TcK00I">
+    <mxGraphModel dx="1426" dy="842" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-1" parent="1" style="swimlane;fontStyle=1;align=center;startSize=50;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" value="&lt;&lt;abstract&gt;&gt;&#xa;AbstractGraph" vertex="1">
+          <mxGeometry height="200" width="260" x="590" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-2" parent="Mu2oIwNinp5djIZPpdkG-1" style="text;strokeColor=#001DBC;fillColor=#0050ef;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ insert_edge(a, lbl, b): void&#xa;+ load_from_file(file): void&#xa;+ write_to_file(file): void&#xa;+ disconnect(a, b): void&#xa;+ remove_node(lbl): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(lbl): vector&lt;string&gt;" vertex="1">
+          <mxGeometry height="150" width="260" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-3" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;" value="Graph" vertex="1">
+          <mxGeometry height="290" width="270" x="180" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-4" parent="Mu2oIwNinp5djIZPpdkG-3" style="text;strokeColor=#2D7600;fillColor=#60a917;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="- nodes: list&lt;Node*&gt;&#xa;- edges: list&lt;Edge*&gt;" vertex="1">
+          <mxGeometry height="46" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-5" parent="Mu2oIwNinp5djIZPpdkG-3" style="line;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-6" parent="Mu2oIwNinp5djIZPpdkG-3" style="text;strokeColor=#2D7600;fillColor=#60a917;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ Graph() / ~Graph()&#xa;+ Graph(const Graph&amp;)&#xa;+ operator=(const Graph&amp;)&#xa;+ Graph(Graph&amp;&amp;) noexcept&#xa;+ operator=(Graph&amp;&amp;) noexcept&#xa;+ insert_edge(): void&#xa;+ load_from_file(): void&#xa;+ write_to_file(): void&#xa;+ disconnect(): void&#xa;+ remove_node(): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(): vector&lt;string&gt;" vertex="1">
+          <mxGeometry height="210" width="270" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-7" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;" value="MatrixGraph" vertex="1">
+          <mxGeometry height="240" width="290" x="890" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-8" parent="Mu2oIwNinp5djIZPpdkG-7" style="text;strokeColor=#2D7600;fillColor=#60a917;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ node_labels: vector&lt;string&gt;&#xa;+ index_of: unordered_map&lt;string,int&gt;&#xa;+ matrix: vector&lt;vector&lt;vector&lt;string&gt;&gt;&gt;" vertex="1">
+          <mxGeometry height="60" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-9" parent="Mu2oIwNinp5djIZPpdkG-7" style="line;strokeColor=#82b366;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-10" parent="Mu2oIwNinp5djIZPpdkG-7" style="text;strokeColor=#2D7600;fillColor=#60a917;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ MatrixGraph() (default rule of five)&#xa;+ insert_edge(): void&#xa;+ load_from_file(): void&#xa;+ write_to_file(): void&#xa;+ disconnect(): void&#xa;+ remove_node(): void&#xa;+ get_nodes(): vector&lt;string&gt;&#xa;+ get_out_neighbors(): vector&lt;string&gt;" vertex="1">
+          <mxGeometry height="146" width="290" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-11" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;" value="Node" vertex="1">
+          <mxGeometry height="190" width="230" x="150" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-12" parent="Mu2oIwNinp5djIZPpdkG-11" style="text;strokeColor=#BD7000;fillColor=#f0a30a;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#000000;" value="- label_: string&#xa;- out_edges_: list&lt;Edge*&gt;&#xa;- in_edges_: list&lt;Edge*&gt;" vertex="1">
+          <mxGeometry height="60" width="230" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-13" parent="Mu2oIwNinp5djIZPpdkG-11" style="line;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-14" parent="Mu2oIwNinp5djIZPpdkG-11" style="text;strokeColor=#BD7000;fillColor=#f0a30a;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#000000;" value="+ label(): const string&amp;&#xa;+ add_out_edge(e): void&#xa;+ add_in_edge(e): void&#xa;+ remove_out_edge(e): void&#xa;+ remove_in_edge(e): void&#xa;+ is_isolated(): bool" vertex="1">
+          <mxGeometry height="96" width="230" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-15" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;" value="Edge" vertex="1">
+          <mxGeometry height="130" width="210" x="430" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-16" parent="Mu2oIwNinp5djIZPpdkG-15" style="text;strokeColor=#BD7000;fillColor=#f0a30a;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#000000;" value="- label_: string&#xa;+ from: Node*&#xa;+ to: Node*" vertex="1">
+          <mxGeometry height="60" width="210" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-17" parent="Mu2oIwNinp5djIZPpdkG-15" style="line;strokeColor=#d6b656;" value="" vertex="1">
+          <mxGeometry height="8" width="210" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-18" parent="Mu2oIwNinp5djIZPpdkG-15" style="text;strokeColor=#BD7000;fillColor=#f0a30a;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#000000;" value="+ label(): const string&amp;" vertex="1">
+          <mxGeometry height="36" width="210" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-19" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" value="Tarjan" vertex="1">
+          <mxGeometry height="230" width="250" x="690" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-20" parent="Mu2oIwNinp5djIZPpdkG-19" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="- next_id: int&#xa;- nodes: vector&lt;string&gt;&#xa;- out_edges: vector&lt;vector&lt;int&gt;&gt;&#xa;- ids, low, stack: vector&lt;int&gt;&#xa;- on_stack: vector&lt;bool&gt;&#xa;- sccs: vector&lt;vector&lt;string&gt;&gt;" vertex="1">
+          <mxGeometry height="110" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-21" parent="Mu2oIwNinp5djIZPpdkG-19" style="line;strokeColor=#b85450;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="136" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-22" parent="Mu2oIwNinp5djIZPpdkG-19" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ findSCCs(graph): vector&lt;vector&lt;string&gt;&gt;&#xa;- dfs(current: int): void" vertex="1">
+          <mxGeometry height="86" width="250" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-23" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;" value="Diamond" vertex="1">
+          <mxGeometry height="260" width="270" x="1000" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-24" parent="Mu2oIwNinp5djIZPpdkG-23" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="- nodes: vector&lt;string&gt;&#xa;- label_sequences: vector&lt;vector&lt;string&gt;&gt;&#xa;- diamond_pairs: vector&lt;pair&lt;string,string&gt;&gt;" vertex="1">
+          <mxGeometry height="80" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-25" parent="Mu2oIwNinp5djIZPpdkG-23" style="line;strokeColor=#b85450;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-26" parent="Mu2oIwNinp5djIZPpdkG-23" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ find_diamonds(graph, query): vector&lt;pair&gt;&#xa;- get_label_sequences(file): vector&lt;vector&gt;&#xa;- dfs_follow_sequence(): void" vertex="1">
+          <mxGeometry height="146" width="270" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-27" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-3" style="endArrow=block;endFill=0;endSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="Mu2oIwNinp5djIZPpdkG-1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-28" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-7" style="endArrow=block;endFill=0;endSize=12;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" target="Mu2oIwNinp5djIZPpdkG-1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-29" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-3" style="endArrow=ERmany;startArrow=ERmandOne;exitX=0.2;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;" target="Mu2oIwNinp5djIZPpdkG-11" value="owns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-30" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-3" style="endArrow=ERmany;startArrow=ERmandOne;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;" target="Mu2oIwNinp5djIZPpdkG-15" value="owns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-31" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-11" style="endArrow=open;endSize=8;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d6b656;" target="Mu2oIwNinp5djIZPpdkG-15" value="references">
+          <mxGeometry relative="1" x="0.1034" y="-6" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-32" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-19" style="endArrow=open;endSize=8;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#6c8ebf;" target="Mu2oIwNinp5djIZPpdkG-1" value="uses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-33" edge="1" parent="1" source="Mu2oIwNinp5djIZPpdkG-23" style="endArrow=open;endSize=8;dashed=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#6c8ebf;" target="Mu2oIwNinp5djIZPpdkG-1" value="uses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-34" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fillColor=#e1d5e7;strokeColor=#9673a6;" value="graph_from_cmd" vertex="1">
+          <mxGeometry height="240" width="290" x="1300" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-35" parent="Mu2oIwNinp5djIZPpdkG-34" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="ParsedArgs (struct)&#xa;+ verbose: bool&#xa;+ use_matrix: bool&#xa;+ primary_file: string&#xa;+ secondary_file: string" vertex="1">
+          <mxGeometry height="80" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-36" parent="Mu2oIwNinp5djIZPpdkG-34" style="line;strokeColor=#9673a6;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="Mu2oIwNinp5djIZPpdkG-37" parent="Mu2oIwNinp5djIZPpdkG-34" style="text;strokeColor=#6F0000;fillColor=#a20025;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;fontColor=#ffffff;" value="+ parse_arguments(argc, argv, allow_secondary): ParsedArgs&#xa;+ create_graph(use_matrix): unique_ptr&lt;AbstractGraph&gt;" vertex="1">
+          <mxGeometry height="126" width="290" y="114" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
