@@ -1,6 +1,6 @@
 folder = oblig3
 
-common_srcs = graph.cpp node_edge.cpp MatrixGraph.cpp tarjans.cpp diamonds.cpp
+common_srcs = graph.cpp node_edge.cpp MatrixGraph.cpp tarjans.cpp diamonds.cpp graph_from_cmd.cpp
 common_objs = $(patsubst %.cpp,%.o,$(common_srcs))
 
 binary_oblig2 = graph_oblig2

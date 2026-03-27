@@ -6,7 +6,7 @@
 namespace tarjans_algorithm {
 
 std::vector<std::vector<std::string>> Tarjan::findSCCs(const namespace_graph::AbstractGraph& graph) {
-    // Reset state in case the same Tarjan object is reused
+    // Reset in case the same Tarjan object is reused
     next_id = 0;
     nodes.clear();
     out_edges.clear();
@@ -32,7 +32,7 @@ std::vector<std::vector<std::string>> Tarjan::findSCCs(const namespace_graph::Ab
     low.resize(n, UNVISITED);
     on_stack.resize(n, false);
 
-    // Build adjacency list using integer indices
+    // Build neighbors-list using integer indices
     for (int i = 0; i < n; i++) {
         std::vector<std::string> neighbors = graph.get_out_neighbors(nodes[i]);
 
@@ -52,38 +52,49 @@ std::vector<std::vector<std::string>> Tarjan::findSCCs(const namespace_graph::Ab
 }
 
 void Tarjan::dfs(int current) {
+    // Add node to stack and mark it as discovered
     stack.push_back(current);
     on_stack[current] = true;
     ids[current] = next_id;
     low[current] = next_id;
     next_id++;
 
+    // Explore it´s out edges
     for (int to : out_edges[current]) {
+        // Explore neighbor if it isn´t discovered yet
         if (ids[to] == UNVISITED) {
             dfs(to);
+            // Choose lowest id
             low[current] = std::min(low[current], low[to]);
+        // If neighbor already visited
         } else if (on_stack[to]) {
+            // Choose lowest id
             low[current] = std::min(low[current], ids[to]);
         }
     }
 
-    // current is the root of an SCC
+    // if current is the root of an SCC
     if (ids[current] == low[current]) {
-        std::vector<std::string> component;
+        // Storing nodes of scc
+        std::vector<std::string> scc;
 
         while (true) {
+            // Start on nodes at back of the stack
             int node = stack.back();
+            // Pop nodes off the stack
             stack.pop_back();
             on_stack[node] = false;
 
-            component.push_back(nodes[node]);
+            // Add nodes to scc
+            scc.push_back(nodes[node]);
 
+            // Stop at root of SCC
             if (node == current) {
                 break;
             }
         }
 
-        sccs.push_back(component);
+        sccs.push_back(scc);
     }
 }
 

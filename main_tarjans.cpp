@@ -1,10 +1,9 @@
-#include "graph.h"
-#include "MatrixGraph.h"
 #include "tarjans.h"
+#include "graph_from_cmd.h"
 #include <iostream>
-#include <memory>
-#include <string>
+#include <chrono>
 
+// Helper method that prints each scc in sccs
 void print_sccs(const std::vector<std::vector<std::string>>& sccs) {
     int i = 1;
     for (const auto& scc : sccs) {
@@ -16,60 +15,42 @@ void print_sccs(const std::vector<std::vector<std::string>>& sccs) {
     }
 }
 
-
+// Main function, input: arc - n cmd. line arguments, argv - array of argument
 int main(int argc, char** argv) {
-    bool verbose = false;
-    bool use_matrix = false;
-    std::string filename;
+    auto args = graph_from_cmd::parse_arguments(argc, argv, false);
 
-    for (int i = 1; i < argc; i++) {
-        std::string arg = argv[i];
-
-        if (arg == "--verbose") {
-            verbose = true;
-        }
-        else if (arg == "--silent") {
-            verbose = false;
-        }
-        else if (arg == "--matrix") {
-            use_matrix = true;
-        }
-        else if (arg == "--linked") {
-            use_matrix = false;
-        }
-        else if (!arg.empty() && arg[0] == '-') {
-            std::cerr << "Unknown flag: " << arg << "\n";
-            return 1;
-        }
-        else {
-            filename = arg;
-        }
-    }
-
-    if (filename.empty()) {
+    if (args.primary_file.empty()) {
         std::cerr << "No input file given\n";
         return 1;
     }
 
-    std::unique_ptr<namespace_graph::AbstractGraph> graph;
+    // Create graph instance
+    auto graph = graph_from_cmd::create_graph(args.use_matrix);
 
-    if (use_matrix) {
-        graph = std::make_unique<namespace_graph::MatrixGraph>();
-    }
-    else {
-        graph = std::make_unique<namespace_graph::Graph>();
-    }
+    // load nodes and edges from file
+    graph->load_from_file(args.primary_file);
 
-    graph->load_from_file(filename);
-
+    // Initialize Tarjan class
     tarjans_algorithm::Tarjan tarjan;
+    
+    // To keep track of time
+    auto start = std::chrono::high_resolution_clock::now();
+    // Do Tarjan´s algoritm
     auto sccs_from_graph = tarjan.findSCCs(*graph);
+    auto end = std::chrono::high_resolution_clock::now();
 
-    if (verbose) {
+    // Time it took for Tarjans Algorithm to finish
+    double ms = std::chrono::duration<double, std::milli>(end - start).count();
+    
+    // Print more output if verbose
+    if (args.verbose) {
         print_sccs(sccs_from_graph);
     }
 
+    // Output runtime and number of SCCs
+    std::cout << "Runtime_ms: " << ms << "\n";
     std::cout << "Number of SCCs: " << sccs_from_graph.size() << "\n";
+    std::cout.flush();
 
     return 0;
 }

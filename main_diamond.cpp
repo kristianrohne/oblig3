@@ -1,10 +1,9 @@
-#include "graph.h"
-#include "MatrixGraph.h"
 #include "diamond_finder.h"
+#include "graph_from_cmd.h"
 #include <iostream>
-#include <memory>
-#include <string>
+#include <chrono>
 
+// Helper functions for printing out pairs
 void print_diamonds(const std::vector<std::pair<std::string, std::string>>& pairs) {
     int i = 1;
     for (const auto& p : pairs) {
@@ -12,62 +11,36 @@ void print_diamonds(const std::vector<std::pair<std::string, std::string>>& pair
     }
 }
 
+// Main function, input: arc - n cmd. line arguments, argv - array of argument
 int main(int argc, char** argv) {
-    bool verbose = false;
-    bool use_matrix = false;
-    std::string graph_file;
-    std::string query_file;
+    // Read arguments from cmd line
+    auto args = graph_from_cmd::parse_arguments(argc, argv, true);
 
-    for (int i = 1; i < argc; i++) {
-        std::string arg = argv[i];
-
-        if (arg == "--verbose") {
-            verbose = true;
-        }
-        else if (arg == "--silent") {
-            verbose = false;
-        }
-        else if (arg == "--matrix") {
-            use_matrix = true;
-        }
-        else if (arg == "--linked") {
-            use_matrix = false;
-        }
-        else if (!arg.empty() && arg[0] == '-') {
-            std::cerr << "Unknown flag: " << arg << "\n";
-            return 1;
-        }
-        else if (graph_file.empty()) {
-            graph_file = arg;
-        }
-        else if (query_file.empty()) {
-            query_file = arg;
-        }
-        else {
-            std::cerr << "Too many input files given\n";
-            return 1;
-        }
-    }
-
-    if (graph_file.empty() || query_file.empty()) {
+    // If argument not recognized, it gets treated as an error
+    if (args.primary_file.empty() || args.secondary_file.empty()) {
         std::cerr << "Usage: ./graph_diamond [--linked|--matrix] [--verbose|--silent] <graph_file> <query_file>\n";
         return 1;
     }
 
-    std::unique_ptr<namespace_graph::AbstractGraph> graph;
+    // Create graph instance
+    auto graph = graph_from_cmd::create_graph(args.use_matrix);
 
-    if (use_matrix) {
-        graph = std::make_unique<namespace_graph::MatrixGraph>();
-    } else {
-        graph = std::make_unique<namespace_graph::Graph>();
-    }
-
-    graph->load_from_file(graph_file);
+    // Load nodes and edges for graph from file
+    graph->load_from_file(args.primary_file);
 
     diamond_finder::Diamond diamond;
-    auto pairs = diamond.find_diamonds(*graph, query_file);
+    
+    // Keep track of time for alghorithm
+    auto start = std::chrono::high_resolution_clock::now();
+    auto pairs = diamond.find_diamonds(*graph, args.secondary_file);
+    auto end = std::chrono::high_resolution_clock::now();
 
-    if (verbose) {
+    // Time it takes for algorithm to ifnish
+    double ms = std::chrono::duration<double, std::milli>(end - start).count();
+    std::cout << "Runtime_ms: " << ms << "\n";
+
+    // Print more output if verbose mode
+    if (args.verbose) {
         print_diamonds(pairs);
     }
 

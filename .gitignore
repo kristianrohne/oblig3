@@ -6,6 +6,15 @@ graph_oblig2
 graph_scc
 graph_diamond
 
+# Data files
+*.dat
+*.query
+
+# Benchmark and generated files
+benchmark_data/
+gen_scc
+gen_diamond
+
 # Backup files
 *.bak
 *.swp
